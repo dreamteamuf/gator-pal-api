@@ -37,16 +37,16 @@ app.post('/', async (req, res) => {
   let dateAdmitted = new Date(yearAdmitted, monthAdmitted, dayAdmitted, hour, minutes)
   let uuid = uuidv4()
 
-  await db.collection('patients').doc().collection('general').add(
+  await db.collection('patients').add(//collection('general').add(
     {
       "Name": name,
       "Timestamp": timestamp,
       "Guardian": guardian,
-      "Phone Number": phoneNumber,
+      "Phone_Number": phoneNumber,
       "Address": address,
-      "Reason for admittance": reason,
-      "Date of Birth": DOB,
-      "Date Admitted": dateAdmitted,
+      "Reason_for_admittance": reason,
+      "DOB": DOB,
+      "Date_Admitted": dateAdmitted,
       "UUID": uuid
     }
     // {
@@ -69,8 +69,8 @@ app.post('/', async (req, res) => {
     //   }
     // }
   ).then(ref => {
-    console.log("Document ID " + ref.parent.parent.id)
-    console.log("General ID " + ref.id)
+    //console.log("Document ID " + ref.parent.parent.id) 
+    console.log("Ref ID " + ref.id)
   }).catch((error) => {
     console.log(error)
     res.status(500).send(error)
