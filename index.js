@@ -18,36 +18,7 @@ app.use(bodyParser.urlencoded({extended: false}))
 
 
 app.get('/', async (req, res) => {
-    // let docRef = db.doc("patients")
-    // try {
-    //     const patientId = req.body.id;
-    //     console.log(req.body.id);
-        
-    //     if(!patientId){
-    //         let patients = await db.collection("patients").get();
-    //     }else{
-    //         let patients = await db.collection("patients").doc(patientId).get();
-    //     }
-
-    //     if(!patients.exists){
-    //         throw new Error("Patient does not exist")
-    //     }
-    //     console.log(patients);
-    //     res.json({
-    //         id: patients.id,
-    //         data: patients.data()
-    //     });
-    //     // querySnapshot.forEach((doc) => {
-    //     //     console.log(doc.id, " => ", doc.data());
-    //     // })
-
- 
-    // } catch (error){
-    //     res.status(500).send(error);
-    // }   
-
-    let patientsReference = db.collection('patients');
-    let allPatients = patientsReference.get()
+    let patientsReference = db.collection('patients').get()
         .then(snapshot => {
             snapshot.forEach(doc => {
                 console.log(doc.id, '=>', doc.data());
@@ -57,6 +28,8 @@ app.get('/', async (req, res) => {
             console.log('Error getting documents', err);
         });
 });
+
+
 
 
 server.listen(8080, () => {
