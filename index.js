@@ -115,8 +115,34 @@ app.put('/', async (req, res) => {
   }
 })
 
+app.delete('/:id', async (req, res) => {
+    if (req.params === null || req.params.id === null) {
+        console.log("Error: id not found")
+        res.status(400).send('Error ID Not found')
+    }
+
+    console.log(req.params.id)
+    try {
+        const id = req.params.id
+        
+    }
+    let documentRef = db.doc(`patients/${req.params.id}`)
+    await  documentRef.get().then((documentSnapshot) => {
+        if (!documentSnapshot.exists) {
+            res.status(400).send("Not found")
+        }
+        documentRef.delete().then(() => {
+            res.status(200).send("Successfuly Deleted")
+        })
+    }).catch((err) =>{
+        console.log(error)
+        res.status(400).send(err)
+    })
+});
+
 server.listen(8080, () => {
   const host = server.address().address
   const port = server.address().port
   console.log(`Example app listening at http://${host}:${port}`);
 })
+
